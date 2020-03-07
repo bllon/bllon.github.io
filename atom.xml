@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://bllon.github.io</id>
-    <title>Gridea</title>
-    <updated>2020-03-07T07:57:26.637Z</updated>
+    <title>bllon</title>
+    <updated>2020-03-07T08:02:46.791Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://bllon.github.io"/>
     <link rel="self" href="https://bllon.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>xubei的GitHub博客</subtitle>
     <logo>https://bllon.github.io/images/avatar.png</logo>
     <icon>https://bllon.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
+    <rights>All rights reserved 2020, bllon</rights>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://bllon.github.io/post/hello-gridea/</id>
