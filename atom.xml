@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://bllon.github.io</id>
     <title>bllon</title>
-    <updated>2020-03-07T08:02:46.791Z</updated>
+    <updated>2020-03-07T08:11:01.192Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://bllon.github.io"/>
     <link rel="self" href="https://bllon.github.io/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://bllon.github.io/images/avatar.png</logo>
     <icon>https://bllon.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, bllon</rights>
+    <entry>
+        <title type="html"><![CDATA[新的开始]]></title>
+        <id>https://bllon.github.io/post/xin-de-kai-shi/</id>
+        <link href="https://bllon.github.io/post/xin-de-kai-shi/">
+        </link>
+        <updated>2020-03-07T08:03:54.000Z</updated>
+        <content type="html"><![CDATA[<p>😀😀😀</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://bllon.github.io/post/hello-gridea/</id>
