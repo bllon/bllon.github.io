@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on bllon</title><link>https://bllon.github.io/categories/python/</link><description>Recent content in Python on bllon</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://bllon.github.io/categories/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Anaconda安装</title><link>https://bllon.github.io/p/anaconda-install/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>https://bllon.github.io/p/anaconda-install/</guid><description>&lt;h2 id="anaconda官网下载地址">anaconda官网下载地址&lt;/h2>
+&lt;p>&lt;a class="link" href="https://www.anaconda.com/download" target="_blank" rel="noopener"
+>官网地址&lt;/a>&lt;/p>
+&lt;p>直接下一步安装即可&lt;/p>
+&lt;h2 id="配置环境变量">配置环境变量&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">D:\ProgramData\anaconda3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">D:\ProgramData\anaconda3\Scripts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">D:\ProgramData\anaconda3\Library\mingw-w64\bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">D:\ProgramData\anaconda3\Library\usr\bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">D:\ProgramData\anaconda3\Library\bin
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">查看python版本
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">python
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">查看conda版本
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda --version
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">查看环境
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda info
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda info -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda env list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda info --envs
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="创建虚拟环境">创建虚拟环境&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">conda create --name env python=3.9.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">切换环境
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda activate env
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">退出环境
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda deactivate
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">删除环境
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda remove -n env --all
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="powershell无法切换环境">PowerShell无法切换环境&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">允许本地脚本
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Set-ExecutionPolicy RemoteSigned
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">重置conda环境
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda init powershell
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">重新打开窗口
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda env list
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

@@ -1,0 +1,227 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="一种高速高安全的签名方法"><title>ed25519加密算法使用</title>
+<link rel=canonical href=https://bllon.github.io/p/ed25519/><link rel=stylesheet href=/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css><meta property="og:title" content="ed25519加密算法使用"><meta property="og:description" content="一种高速高安全的签名方法"><meta property="og:url" content="https://bllon.github.io/p/ed25519/"><meta property="og:site_name" content="bllon"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="nodejs"><meta property="article:tag" content="加密算法"><meta property="article:published_time" content="2023-07-22T00:00:00+00:00"><meta property="article:modified_time" content="2023-07-22T00:00:00+00:00"><meta name=twitter:title content="ed25519加密算法使用"><meta name=twitter:description content="一种高速高安全的签名方法"><link rel="shortcut icon" href=/favicon.jpg></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hud110b221448f1ac08c314d173013de0c_74013_300x0_resize_q75_box.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar></a></figure><div class=site-meta><h1 class=site-name><a href=/>bllon</a></h1><h2 class=site-description>拥有全栈技术的后端开发工程师</h2></div></header><ol class=social-menu><li><a href=https://space.bilibili.com/299210894 target=_blank title=bilibili rel=me><!doctype html><svg t="1690019132186" class="icon" viewBox="0 0 1129 1024" xmlns="http://www.w3.org/2000/svg" p-id="1609" width="141.125" height="128" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M234.909 9.656a80.468 80.468.0 0168.398.0 167.374 167.374.0 0141.843 30.578l160.937 140.82h115.07l160.936-140.82a168.983 168.983.0 0141.843-30.578A80.468 80.468.0 01930.96 76.445a80.468 80.468.0 01-17.703 53.914 449.818 449.818.0 01-35.406 32.187 232.553 232.553.0 01-22.531 18.508h100.585a170.593 170.593.0 01118.289 53.109 171.397 171.397.0 0153.914 118.288v462.693a325.897 325.897.0 01-4.024 70.007 178.64 178.64.0 01-80.468 112.656 173.007 173.007.0 01-92.539 25.75h-738.7a341.186 341.186.0 01-72.421-4.024A177.835 177.835.0 0128.91 939.065 172.202 172.202.0 011.55 846.526V388.662a360.498 360.498.0 010-66.789A177.03 177.03.0 01162.487 178.64h105.414c-16.899-12.07-31.383-26.555-46.672-39.43a80.468 80.468.0 01-25.75-65.984 80.468 80.468.0 0139.43-63.57M216.4 321.873a80.468 80.468.0 00-63.57 57.937 108.632 108.632.0 000 30.578v380.615a80.468 80.468.0 0055.523 80.469 106.218 106.218.0 0034.601 5.632h654.208a80.468 80.468.0 0076.444-47.476 112.656 112.656.0 008.047-53.109v-354.06a135.187 135.187.0 000-38.625 80.468 80.468.0 00-52.304-54.719 129.554 129.554.0 00-49.89-7.242H254.22a268.764 268.764.0 00-37.82.0zm0 0" fill="#20b0e3" p-id="1610"/><path d="M348.369 447.404a80.468 80.468.0 0155.523 18.507 80.468 80.468.0 0128.164 59.547v80.468a80.468 80.468.0 01-16.094 51.5 80.468 80.468.0 01-131.968-9.656 104.609 104.609.0 01-10.46-54.719v-80.468a80.468 80.468.0 0170.007-67.593zm416.02.0a80.468 80.468.0 0186.102 75.64v80.468a94.148 94.148.0 01-12.07 53.11 80.468 80.468.0 01-132.773.0 95.757 95.757.0 01-12.875-57.133V519.02a80.468 80.468.0 0170.007-70.812zm0 0" fill="#20b0e3" p-id="1611"/></svg></a></li><li><a href='https://blog.csdn.net/qq_36767214?type=blog' target=_blank title=CSDN rel=me><!doctype html><svg t="1690019276255" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="1877" width="128" height="128" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M512 1024C229.2224 1024 0 794.7776.0 512S229.2224.0 512 0s512 229.2224 512 512-229.2224 512-512 512zm17.066667-413.525333c34.850133 4.352 68.778667 5.12 102.741333 2.0992 23.04-2.048 44.817067-8.362667 64.170667-21.9136 38.212267-26.794667 49.783467-85.1968 24.251733-123.050667-14.626133-21.7088-36.8128-30.344533-60.757333-35.498667-35.054933-7.543467-70.4512-5.751467-105.847467-3.413333-5.666133.3584-6.7584 3.072-7.236267 8.209067-3.072 32.682667-6.536533 65.314133-9.813333 97.962666-2.5088 24.814933-4.932267 49.629867-7.509333 75.605334zm53.4016-33.928534c1.962667-20.906667 3.6352-39.338667 5.4272-57.770666 1.553067-15.906133 3.413333-31.778133 4.727466-47.701334.3584-4.283733 1.553067-6.656 5.956267-6.382933 15.616 1.041067 31.709867.034133 46.728533 3.652267 36.488533 8.823467 48.725333 54.306133 23.3472 83.029333-15.8208 17.902933-36.7616 23.586133-59.255466 25.088-8.465067.546133-17.015467.085333-26.9312.085333zM512 434.295467c-2.184533-.648533-3.5328-1.1776-4.932267-1.4336-37.717333-6.877867-75.690667-8.328533-113.646933-2.816-20.974933 3.037867-41.0112 9.489067-57.480533 23.330133-22.9888 19.319467-21.640533 46.848 4.4032 62.0032 13.056 7.594667 28.023467 12.509867 42.5984 17.288533 14.08 4.608 28.996267 6.826667 43.144533 11.264 12.5952 3.925333 14.011733 14.318933 3.584 22.306134-3.345067 2.56-7.441067 5.085867-11.537067 5.751466-11.195733 1.826133-22.698667 4.386133-33.826133 3.566934-24.098133-1.774933-48.042667-5.461333-72.5504-8.430934-1.365333 10.615467-2.935467 23.0912-4.5568 35.9424 4.181333 1.365333 7.68 2.730667 11.264 3.618134 33.9456 8.4992 68.386133 9.608533 102.912 5.12 20.087467-2.6112 39.4752-7.901867 56.695467-19.029334 28.603733-18.4832 36.693333-57.1904-4.676267-75.383466-14.506667-6.382933-30.190933-10.410667-45.482667-15.086934-11.4176-3.4816-23.313067-5.614933-34.525866-9.5232-9.7792-3.413333-11.144533-12.202667-3.037867-18.397866 4.6592-3.549867 10.717867-6.997333 16.384-7.3728a480.853333 480.853333.0 0153.384533-.853334c15.377067.699733 30.651733 3.549867 46.4896 5.5296L512 434.295467zm257.143467 2.048L750.933333 614.2976h54.152534c4.778667-45.636267 9.710933-90.7264 14.062933-135.8848.6144-6.365867 2.3552-8.840533 8.686933-9.0112 11.434667-.273067 22.8864-1.979733 34.286934-1.570133 23.722667.853333 42.3936 9.728 38.4 43.264-2.901333 24.2688-5.597867 48.571733-8.2432 72.874666-1.092267 10.069333-1.826133 20.189867-2.730667 30.4128h55.330133c3.584-35.259733 7.9872-70.058667 10.496-104.994133 3.413333-47.4624-17.7664-73.3184-64.682666-80.213333-40.96-6.007467-81.339733-.341333-121.5488 7.133866zM285.6448 570.948267c-8.738133 1.297067-16.384 2.798933-24.098133 3.4816-25.6512 2.235733-51.319467 3.9424-76.305067-4.266667-13.909333-4.590933-24.6784-12.578133-29.7984-25.9584-7.901867-20.701867.887467-47.104 19.831467-60.3136C192.648534 471.773867 212.992 467.968 233.728 467.968c22.545067-.017067 45.090133 2.423467 68.232533 3.84L307.2 432.298667c-15.069867-1.723733-29.4912-3.925333-43.997867-4.9152-41.0112-2.798933-80.64 2.6112-117.469866 20.462933-30.020267 14.557867-52.053333 36.010667-58.6752 68.130133-7.850667 38.144 11.537067 69.495467 51.7632 85.845334 19.1488 7.765333 39.287467 12.509867 60.0064 12.5952 24.746667.1024 49.493333-1.570133 74.205866-2.952534 3.106133-.170667 8.311467-2.901333 8.669867-5.034666 1.979733-11.554133 2.730667-23.278933 3.9424-35.464534z" fill="#dd1700" p-id="1878"/></svg></a></li><li><a href=https://github.com/bllon target=_blank title=GitHub rel=me><!doctype html><svg t="1690019317744" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="2894" width="128" height="128" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M64 512c0 195.2 124.8 361.6 300.8 422.4 22.4 6.4 19.2-9.6 19.2-22.4v-76.8c-134.4 16-140.8-73.6-150.4-89.6-19.2-32-60.8-38.4-48-54.4 32-16 64 3.2 99.2 57.6 25.6 38.4 76.8 32 105.6 25.6 6.4-22.4 19.2-44.8 35.2-60.8C281.6 691.2 224 604.8 224 502.4c0-48 16-96 48-131.2-22.4-60.8.0-115.2 3.2-121.6 57.6-6.4 118.4 41.6 124.8 44.8 32-9.6 70.4-12.8 112-12.8s80 6.4 112 12.8c12.8-9.6 67.2-48 121.6-44.8 3.2 6.4 25.6 57.6 6.4 118.4 32 38.4 48 83.2 48 131.2.0 102.4-57.6 188.8-201.6 214.4 22.4 22.4 38.4 54.4 38.4 92.8v112c0 9.6.0 19.2 16 19.2C832 876.8 960 710.4 960 512c0-246.4-201.6-448-448-448S64 265.6 64 512z" fill="#040000" p-id="2895"/></svg></a></li><li><a href=https://learnku.com/blog/sosure target=_blank title=LearnKu rel=me><!doctype html><svg t="1690019445693" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="5073" width="128" height="128" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M907.3664 412.26752V1024h-52.736a103.7824 103.7824.0 002.048-20.48V433.01888A216.15616 216.15616.0 01800.9216 440.32 220.54912 220.54912.0 01610.7392 112.64H413.2608A220.54912 220.54912.0 01223.0784 440.32a216.14592 216.14592.0 01-55.7568-7.30112V1003.52a103.8592 103.8592.0 002.048 20.48h-52.736V412.26752A220.55936 220.55936.0 01223.0784.0a216.20736 216.20736.0 01156.07808 66.56h265.68704A216.19712 216.19712.0 01800.9216.0a220.55936 220.55936.0 01106.4448 412.26752zm-36.352 16.384c-.62976.21504-1.25952.44032-1.8944.65024.60928-.24576 1.23904-.4608 1.8688-.67584zm12.14976-4.56192-.9728.38912zM141.824 424.448l-.9728-.38912zm13.07136 4.82304c-.63488-.20992-1.26464-.43008-1.89952-.65024l1.90976.65536zM223.0784 51.2a168.96 168.96.0 10167.2704 168.96A168.12032 168.12032.0 00223.0784 51.2zm182.9376 49.30048-.24576-.38912zm-17.09056-23.1424-.35328-.41472zm246.20032.0.35328-.41472zm-17.09056 23.1424.24576-.38912zM800.9216 51.2A168.96 168.96.0 10968.192 220.16 168.12032 168.12032.0 00800.9216 51.2zm0 291.84a122.88 122.88.0 11121.6512-122.88A122.27072 122.27072.0 01800.9216 343.04zM223.0784 343.04a122.88 122.88.0 11121.6512-122.88A122.27072 122.27072.0 01223.0784 343.04zm159.6672 261.12h-25.344a12.8 12.8.0 010-25.6h25.344a12.8 12.8.0 010 25.6zm12.672 79.36a12.672 12.672.0 11-25.344.0V652.8a12.672 12.672.0 1125.344.0v30.72zm45.6192-64v15.36a15.2064 15.2064.0 11-30.4128.0v-15.36a15.2064 15.2064.0 1130.4128.0zm152.064 15.36v-15.36a15.2064 15.2064.0 1130.4128.0v15.36a15.2064 15.2064.0 11-30.4128.0zM651.392 640a12.73344 12.73344.0 0112.672 12.8v30.72a12.672 12.672.0 11-25.344.0V652.8a12.73344 12.73344.0 0112.672-12.8zm0-61.44h25.344a12.8 12.8.0 010 25.6h-25.344a12.8 12.8.0 010-25.6zm-387.75808-20.48A129.16736 129.16736.0 00258.56 593.92a126.55104 126.55104.0 00245.3248 45.09696A162.816 162.816.0 01500.25984 558.08H425.8304a25.6 25.6.0 010-51.2h177.408a25.6 25.6.0 010 51.2h-64.42496A159.7952 159.7952.0 01537.6 630.69184 126.57664 126.57664.0 00785.7152 593.92a129.09056 129.09056.0 00-5.07392-35.84h32.06656a163.38944 163.38944.0 013.42016 33.28 159.3856 159.3856.0 01-296.5248 83.09248A159.3856 159.3856.0 01223.0784 591.36a163.46112 163.46112.0 013.42016-33.28h37.13024z" fill="#37bef0" p-id="5074"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>首页</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>归档</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>搜索</span></a></li><li><a href=/%E9%93%BE%E6%8E%A5/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg><span>链接</span></a></li><div class=menu-bottom-section><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#介绍>介绍</a><ol><li><a href=#ed25519的签名长度公钥长度是多少>ED25519的签名长度，公钥长度是多少？</a></li><li><a href=#什么是数字签名>什么是数字签名？</a></li><li><a href=#数字签名的级别>数字签名的级别？</a></li><li><a href=#数字签名大致有哪些算法>数字签名大致有哪些算法？</a></li><li><a href=#什么是椭圆曲线数字签名ecdsa>什么是“椭圆曲线数字签名(ECDSA)”？</a></li><li><a href=#ecc的特点>ECC的特点？</a></li><li><a href=#在数学理论中什么是椭圆曲线>在数学理论中什么是“椭圆曲线”？</a></li><li><a href=#数字签名特点>数字签名特点？</a></li><li><a href=#签名过程是什么>签名过程是什么？</a></li><li><a href=#什么是哈希函数>什么是哈希函数？</a></li><li><a href=#哈希函数的算法特点是什么>哈希函数的算法特点是什么？</a></li><li><a href=#哈希函数在运用时有什么要求>哈希函数在运用时有什么要求？</a></li><li><a href=#哈希算法的原理是什么>哈希算法的原理是什么？</a></li><li><a href=#目前有哪些哈希算法>目前有哪些哈希算法？</a></li></ol></li><li><a href=#使用>使用</a></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/nodejs/>Nodejs</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/ed25519/>ed25519加密算法使用</a></h2><h3 class=article-subtitle>一种高速高安全的签名方法</h3></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg><time class=article-time--published>2023-07-22</time></div></footer></div></header><section class=article-content><h2 id=介绍>介绍</h2><blockquote><p>Ed25519是一个公钥签名系统。
+快速单签名验证，该软件只需要273364个周期来验证英特尔广泛部署的Nehalem/Westmere系列cpu上的签名。(此性能测量是针对短消息的;对于非常长的消息，验证时间主要由哈希时间决定。)Nehalem和Westmere包括2008年至2010年间发布的所有酷睿i7、i5和i3 cpu，以及同一时期发布的大部分至强cpu。
+甚至更快的批量验证，该软件执行一批64个单独的签名验证(在64个公钥下验证64个消息的64个签名)，仅855万次循环，即每个签名在134000次循环以下。该软件很容易适应L1缓存，因此内核之间的争用可以忽略:四核2.4GHz的Westmere每秒验证71000个签名，同时将最大验证延迟保持在4毫秒以下。
+非常快的签名，该软件只需要87548个周期来签署消息。四核2.4GHz韦斯特米尔每秒可签署109000条消息。
+快速生成密钥，密钥生成几乎和签名一样快。为了从操作系统获得安全的随机数，生成密钥会有轻微的代价;Linux下的/dev/urandom大约需要6000个循环。
+安全级别高，该系统的安全目标为2^128;破解它的难度与破解NIST P-256、拥有3000位密钥的RSA、强128位分组密码等类似。已知的最佳攻击实际上平均花费超过2^140位操作，并且随着位操作数量的下降，成功概率呈二次下降。
+万无一失的会话密钥。确定地生成签名;密钥生成需要新的随机性，但新签名不需要。这不仅是一个速度特性，也是一个安全特性，与最近索尼PlayStation 3安全系统崩溃直接相关。</p></blockquote><blockquote><p>ED25519是一个非对称加密的签名方法，非常快、非常安全、产生的数据也非常小。</p></blockquote><h3 id=ed25519的签名长度公钥长度是多少>ED25519的签名长度，公钥长度是多少？</h3><blockquote><p>签名长度为64字节，公钥长度为32字节</p></blockquote><h3 id=什么是数字签名>什么是数字签名？</h3><blockquote><p>数字签名（又称公钥数字签名）是只有信息的发送者才能产生的别人无法伪造的一段数字串，这段数字串同时也是对信息的发送者发送信息真实性的一个有效证明。
+是用于鉴别数字信息的方法，有签名并有验证。数字签名是非对称密钥加密技术（如ED25519）与数字摘要技术的应用。
+数字签名就是附加在数据单元上的一些数据，或者是针对数据所做出的一种密码变换。这种数据或变换允许数据单元的接收者用以确认数据单元的来源和数据单元的完整性并保护数据，即数字签名与验证同在。</p></blockquote><h3 id=数字签名的级别>数字签名的级别？</h3><blockquote><p>数字签名的级别是很高的，是具备不可否定性的。</p></blockquote><h3 id=数字签名大致有哪些算法>数字签名大致有哪些算法？</h3><blockquote><p>RSA、ElGamal、Fiat-Shamir、Guillou- Quisquarter、Schnorr、Ong-Schnorr-Shamir数字签名算法、Des/DSA，椭圆曲线数字签名算法和有限自动机数字签名算法等。特殊数字签名有盲签名、代理签名、群签名、不可否认签名、公平盲签名、门限签名、具有消息恢复功能的签名等。
+目前用到的是“椭圆曲线数字签名（ECDSA）”。</p></blockquote><h3 id=什么是椭圆曲线数字签名ecdsa>什么是“椭圆曲线数字签名(ECDSA)”？</h3><blockquote><p>简称ECC算法，是基于数学理论的椭圆曲线来实现的一种“非对称加密”算法。</p></blockquote><h3 id=ecc的特点>ECC的特点？</h3><blockquote><p>密钥的长度很短，高安全。</p></blockquote><h3 id=在数学理论中什么是椭圆曲线>在数学理论中什么是“椭圆曲线”？</h3><blockquote><p>椭圆曲线指，在特定条件下的特定点的集合所形成的规律（即椭圆曲线公式）。</p></blockquote><h3 id=数字签名特点>数字签名特点？</h3><blockquote><p>每条信息都有一对密钥，其中一个是信息自身的密钥，另一个是公开的公钥。
+在信息或者数据开始签名时用的是密钥，在进入验证时用的是公钥。
+在验证时公钥是公用的，那如何进行准确识别每条信息或数据？
+所有信息都可以被定义，所以公钥需要先向接收端进行注册（身份认证机构），这时就产生了“注册机”，在注册后身份认证机构会写入一串数字证书，然后在对信息签名时，会将数字证书和签名绑定到信息上一起发送到接收端，接收端会向身份认证机构确认密钥的正确性，从而判断密钥和信息是否匹配。</p></blockquote><h3 id=签名过程是什么>签名过程是什么？</h3><blockquote><p>发送报文时，发送方用一个哈希函数从报文文本中生成报文摘要，然后用发送方的私钥对这个摘要进行加密，这个加密后的摘要将作为报文的数字签名和报文一起发送给接收方，接收方首先用与发送方一样的哈希函数从接收到的原始报文中计算出报文摘要，接着再公钥来对报文附加的数字签名进行解密，如果这两个摘要相同、那么接收方就能确认该报文是发送方的。</p></blockquote><h3 id=什么是哈希函数>什么是哈希函数？</h3><blockquote><p>哈希函数（Hash Function），也称为散列函数，给定一个输入x，它会算出相应的输出H(x)。</p></blockquote><h3 id=哈希函数的算法特点是什么>哈希函数的算法特点是什么？</h3><blockquote><p>1.输入x可以是任意长度的字符串。
+2.输出结果即H(x)的长度是固定的。
+3.计算 H(x) 的过程是高效的（对于长度为 n 的字符串 x ，计算出 H(x) 的时间复杂度应为 O(n) ）。</p></blockquote><h3 id=哈希函数在运用时有什么要求>哈希函数在运用时有什么要求？</h3><blockquote><p>1、免碰撞：即不会出现输入 x≠y ，但是H(x)=H(y) 的情况，其实这个特点在理论上并不成立，比如目前比特币使用的 SHA256 算法，会有 2^256 种输出，如果我们进行 2^256 + 1 次输入，那么必然会产生一次碰撞，事实上，通过 理论证明 ，通过 2^130 次输入就会有99%的可能性发生一次碰撞。
+2、隐匿性：对于一个给定的输出结果 H(x) ，想要逆推出输入 x ，在计算上是不可能的。如果想要得到 H(x) 的可能的原输入，不存在比穷举更好的方法。</p></blockquote><h3 id=哈希算法的原理是什么>哈希算法的原理是什么？</h3><blockquote><p>是试图将一个空间的数据集映射到另外一个空间（通常比原空间要小），并利用质数将数据集能够均匀的映射。</p></blockquote><h3 id=目前有哪些哈希算法>目前有哪些哈希算法？</h3><blockquote><p>md4、md5、sha系列等。</p></blockquote><h2 id=使用>使用</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>nacl</span> <span class=nx>from</span> <span class=s2>&#34;tweetnacl&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//string和uint8Array互转
+</span></span></span><span class=line><span class=cl><span class=c1>//https://cloud.tencent.com/developer/ask/sof/302640
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>//base64和uint8Array互转
+</span></span></span><span class=line><span class=cl><span class=c1>//https://blog.csdn.net/qq_35606400/article/details/125629074
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// uint8array转为base64字符串
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>uint8arrayToBase64</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>u8Arr</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>         <span class=kd>let</span> <span class=nx>CHUNK_SIZE</span> <span class=o>=</span> <span class=mh>0x8000</span><span class=p>;</span> <span class=c1>//arbitrary number
+</span></span></span><span class=line><span class=cl><span class=c1></span>         <span class=kd>let</span> <span class=nx>index</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>         <span class=kd>let</span> <span class=nx>length</span> <span class=o>=</span> <span class=nx>u8Arr</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>         <span class=kd>let</span> <span class=nx>result</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>         <span class=kd>let</span> <span class=nx>slice</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>         <span class=k>while</span> <span class=p>(</span><span class=nx>index</span> <span class=o>&lt;</span> <span class=nx>length</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>             <span class=nx>slice</span> <span class=o>=</span> <span class=nx>u8Arr</span><span class=p>.</span><span class=nx>subarray</span><span class=p>(</span><span class=nx>index</span><span class=p>,</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>min</span><span class=p>(</span><span class=nx>index</span> <span class=o>+</span> <span class=nx>CHUNK_SIZE</span><span class=p>,</span> <span class=nx>length</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>             <span class=nx>result</span> <span class=o>+=</span> <span class=nb>String</span><span class=p>.</span><span class=nx>fromCharCode</span><span class=p>.</span><span class=nx>apply</span><span class=p>(</span><span class=kc>null</span><span class=p>,</span> <span class=nx>slice</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>             <span class=nx>index</span> <span class=o>+=</span> <span class=nx>CHUNK_SIZE</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>         <span class=p>}</span>
+</span></span><span class=line><span class=cl>         <span class=c1>// web image base64图片格式: &#34;data:image/png;base64,&#34; + b64encoded;
+</span></span></span><span class=line><span class=cl><span class=c1></span>         <span class=c1>// return  &#34;data:image/png;base64,&#34; + btoa(result);
+</span></span></span><span class=line><span class=cl><span class=c1></span>         <span class=k>return</span> <span class=nx>btoa</span><span class=p>(</span><span class=nx>result</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>     <span class=p>}</span>
+</span></span><span class=line><span class=cl>     <span class=k>catch</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>         <span class=k>throw</span> <span class=nx>e</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>     <span class=p>}</span>
+</span></span><span class=line><span class=cl> <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// base64字符串转为uint8array数组
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>base64ToUint8Array</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>base64String</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kd>let</span> <span class=nx>padding</span> <span class=o>=</span> <span class=s1>&#39;=&#39;</span><span class=p>.</span><span class=nx>repeat</span><span class=p>((</span><span class=mi>4</span> <span class=o>-</span> <span class=nx>base64String</span><span class=p>.</span><span class=nx>length</span> <span class=o>%</span> <span class=mi>4</span><span class=p>)</span> <span class=o>%</span> <span class=mi>4</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kd>let</span> <span class=nx>base64</span> <span class=o>=</span> <span class=p>(</span><span class=nx>base64String</span> <span class=o>+</span> <span class=nx>padding</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=sr>/\-/g</span><span class=p>,</span> <span class=s1>&#39;+&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=sr>/_/g</span><span class=p>,</span> <span class=s1>&#39;/&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kd>let</span> <span class=nx>rawData</span> <span class=o>=</span> <span class=nx>atob</span><span class=p>(</span><span class=nx>base64</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kd>let</span> <span class=nx>outputArray</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Uint8Array</span><span class=p>(</span><span class=nx>rawData</span><span class=p>.</span><span class=nx>length</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>rawData</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=o>++</span><span class=nx>i</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>outputArray</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>=</span> <span class=nx>rawData</span><span class=p>.</span><span class=nx>charCodeAt</span><span class=p>(</span><span class=nx>i</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>outputArray</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>catch</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>throw</span> <span class=nx>e</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// string转uint8array
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>toUint8Arr</span><span class=p>(</span><span class=nx>str</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>buffer</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=k>of</span> <span class=nx>str</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>_code</span> <span class=o>=</span> <span class=nx>i</span><span class=p>.</span><span class=nx>charCodeAt</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>_code</span> <span class=o>&lt;</span> <span class=mh>0x80</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>buffer</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>_code</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=nx>_code</span> <span class=o>&lt;</span> <span class=mh>0x800</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>buffer</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=mh>0xc0</span> <span class=o>+</span> <span class=p>(</span><span class=nx>_code</span> <span class=o>&gt;&gt;</span> <span class=mi>6</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>            <span class=nx>buffer</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=mh>0x80</span> <span class=o>+</span> <span class=p>(</span><span class=nx>_code</span> <span class=o>&amp;</span> <span class=mh>0x3f</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=nx>_code</span> <span class=o>&lt;</span> <span class=mh>0x10000</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>buffer</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=mh>0xe0</span> <span class=o>+</span> <span class=p>(</span><span class=nx>_code</span> <span class=o>&gt;&gt;</span> <span class=mi>12</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>            <span class=nx>buffer</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=mh>0x80</span> <span class=o>+</span> <span class=p>(</span><span class=nx>_code</span> <span class=o>&gt;&gt;</span> <span class=mi>6</span> <span class=o>&amp;</span> <span class=mh>0x3f</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>            <span class=nx>buffer</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=mh>0x80</span> <span class=o>+</span> <span class=p>(</span><span class=nx>_code</span> <span class=o>&amp;</span> <span class=mh>0x3f</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>Uint8Array</span><span class=p>.</span><span class=nx>from</span><span class=p>(</span><span class=nx>buffer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * 使用tweetnacl进行签名
+</span></span></span><span class=line><span class=cl><span class=cm> * signContent 签名内容
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>tweetnaclSign</span><span class=p>(</span><span class=nx>signContent</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 生成 公钥、私钥
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// let keyMap = nacl.sign.keyPair()
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// let publicKey = keyMap.publicKey
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// let secretKey = keyMap.secretKey
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;待签名内容: &#34;</span><span class=p>,</span> <span class=nx>signContent</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;用户服务端的公钥和私钥&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>publicKey</span> <span class=o>=</span> <span class=nx>base64ToUint8Array</span><span class=p>(</span><span class=s2>&#34;BXJXQSSIuVCdHU7FUj/e4McA6MHVP0t7AR9tQg4GyF0=&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>secretKey</span> <span class=o>=</span> <span class=nx>base64ToUint8Array</span><span class=p>(</span><span class=s2>&#34;ZBsmNTR/pwQDSKX261V5g+7zgpfXY9ejRvLDPiK4GXwFcldBJIi5UJ0dTsVSP97gxwDowdU/S3sBH21CDgbIXQ==&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 字符串转为Uint8Array格式，以供签名
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>let</span> <span class=nx>signArray</span> <span class=o>=</span> <span class=nx>toUint8Arr</span><span class=p>(</span><span class=nx>signContent</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 进行签名
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>let</span> <span class=nx>signature</span> <span class=o>=</span> <span class=nx>nacl</span><span class=p>.</span><span class=nx>sign</span><span class=p>.</span><span class=nx>detached</span><span class=p>(</span><span class=nx>signArray</span><span class=p>,</span> <span class=nx>secretKey</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 进行验签
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>let</span> <span class=nx>verify</span> <span class=o>=</span> <span class=nx>nacl</span><span class=p>.</span><span class=nx>sign</span><span class=p>.</span><span class=nx>detached</span><span class=p>.</span><span class=nx>verify</span><span class=p>(</span><span class=nx>signArray</span><span class=p>,</span> <span class=nx>signature</span><span class=p>,</span> <span class=nx>publicKey</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;公钥&#39;</span><span class=o>:</span> <span class=nx>uint8arrayToBase64</span><span class=p>(</span><span class=nx>publicKey</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;私钥&#39;</span><span class=o>:</span> <span class=nx>uint8arrayToBase64</span><span class=p>(</span><span class=nx>secretKey</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;签名&#39;</span><span class=o>:</span> <span class=nx>uint8arrayToBase64</span><span class=p>(</span><span class=nx>signature</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;验签成功&#39;</span><span class=o>:</span> <span class=nx>verify</span>
+</span></span><span class=line><span class=cl>    <span class=p>})</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>msgData</span> <span class=o>=</span> <span class=s1>&#39;哈哈哈哈&#39;</span>
+</span></span><span class=line><span class=cl><span class=nx>tweetnaclSign</span><span class=p>(</span><span class=nx>msgData</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/nodejs/>nodejs</a>
+<a href=/tags/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/>加密算法</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/p/nvm-install/><div class=article-details><h2 class=article-title>nvm安装</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+2023 bllon</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.21.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

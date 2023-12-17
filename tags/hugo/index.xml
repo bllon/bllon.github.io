@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hugo on bllon</title><link>https://bllon.github.io/tags/hugo/</link><description>Recent content in Hugo on bllon</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://bllon.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo博客搭建</title><link>https://bllon.github.io/p/hugo-blog/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>https://bllon.github.io/p/hugo-blog/</guid><description>&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>&lt;strong>&lt;a class="link" href="https://gohugo.io/installation/windows/" target="_blank" rel="noopener"
+>官方下载文档&lt;/a>&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>&lt;a class="link" href="https://www.gohugo.org/" target="_blank" rel="noopener"
+>Hugo中文文档&lt;/a>&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Hugo是由Go语言实现的静态网站生成器。简单、易用、高效、易扩展、快速部署。&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="下载">下载&lt;/h2>
+&lt;p>以下两种方式，任选其中一种。当然官方也提供了其他方式，执行对应的命令即可。&lt;/p>
+&lt;ol>
+&lt;li>对于开发者，可以选择源代码构建方式，前提是需要安装Git和Go以及gcc编译器，这些我在其他文章都有介绍&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">go install -tags extended github.com/gohugoio/hugo@latest
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>对于新手小白或者只想简单的搞一个博客，推荐使用winget安装方式，这是微软自带的免费的包管理器&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">winget install Hugo.Hugo.Extended
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="选择博客主题模板">选择博客主题模板&lt;/h2>
+&lt;p>我选的是这款 &lt;strong>&lt;a class="link" href="https://themes.gohugo.io/themes/hugo-theme-stack/" target="_blank" rel="noopener"
+>Stack&lt;/a>&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>&lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack-starter" target="_blank" rel="noopener"
+>Github地址&lt;/a>&lt;/strong>&lt;/p>
+&lt;h2 id="运行">运行&lt;/h2>
+&lt;ol>
+&lt;li>将上方的Github仓库下载下来
+&lt;img src="https://bllon.github.io/p/hugo-blog/img.png"
+width="1171"
+height="673"
+srcset="https://bllon.github.io/p/hugo-blog/img_hu4f268d8ae1f4d2260cf7a20205266318_74446_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_hu4f268d8ae1f4d2260cf7a20205266318_74446_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="下载仓库压缩包"
+class="gallery-image"
+data-flex-grow="173"
+data-flex-basis="417px"
+>&lt;/li>
+&lt;li>解压，然后把文件夹改成你想要的名字&lt;/li>
+&lt;li>cmd进入命令行，进到该目录下，输入hugo server回车，服务就会启动，给出对应的博客地址：http://localhost:1313/
+&lt;img src="https://bllon.github.io/p/hugo-blog/img_1.png"
+width="1465"
+height="663"
+srcset="https://bllon.github.io/p/hugo-blog/img_1_hu0a2ee8c821768857dd631a6b8d56d167_49413_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_1_hu0a2ee8c821768857dd631a6b8d56d167_49413_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="启动博客服务"
+class="gallery-image"
+data-flex-grow="220"
+data-flex-basis="530px"
+>&lt;/li>
+&lt;li>浏览器进入博客网站
+&lt;img src="https://bllon.github.io/p/hugo-blog/img_2.png"
+width="1920"
+height="892"
+srcset="https://bllon.github.io/p/hugo-blog/img_2_hu4d5f3f571ac40f8782d5097e49a55db5_777931_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_2_hu4d5f3f571ac40f8782d5097e49a55db5_777931_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="进入博客网站"
+class="gallery-image"
+data-flex-grow="215"
+data-flex-basis="516px"
+>&lt;/li>
+&lt;/ol>
+&lt;p>至此博客基本搭建完成&lt;/p>
+&lt;h2 id="网站配置">网站配置&lt;/h2>
+&lt;p>所有的配置文件都在config/_default目录下，我们在修改内容的同时，网站会实时进行更新&lt;/p>
+&lt;h3 id="修改网站标题">修改网站标题&lt;/h3>
+&lt;p>config.toml
+&lt;img src="https://bllon.github.io/p/hugo-blog/img_3.png"
+width="938"
+height="491"
+srcset="https://bllon.github.io/p/hugo-blog/img_3_hu9d56c29f50c4c25c20347732c7e23b0c_43006_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_3_hu9d56c29f50c4c25c20347732c7e23b0c_43006_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="修改网站标题"
+class="gallery-image"
+data-flex-grow="191"
+data-flex-basis="458px"
+>&lt;/p>
+&lt;h3 id="修改菜单">修改菜单&lt;/h3>
+&lt;p>menu.toml&lt;/p>
+&lt;p>我们可以在 &lt;strong>&lt;a class="link" href="https://www.iconfont.cn/" target="_blank" rel="noopener"
+>阿里图标库&lt;/a>&lt;/strong> 下载我们喜欢的图标，svg格式，我是用的是128大小，070707颜色
+&lt;img src="https://bllon.github.io/p/hugo-blog/img_4.png"
+width="886"
+height="680"
+srcset="https://bllon.github.io/p/hugo-blog/img_4_hudae6fd64522ff9221b655950fec272a9_50378_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_4_hudae6fd64522ff9221b655950fec272a9_50378_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="修改网站菜单"
+class="gallery-image"
+data-flex-grow="130"
+data-flex-basis="312px"
+>&lt;/p>
+&lt;h3 id="修改副标题">修改副标题&lt;/h3>
+&lt;p>params.toml
+&lt;img src="https://bllon.github.io/p/hugo-blog/img_5.png"
+width="862"
+height="690"
+srcset="https://bllon.github.io/p/hugo-blog/img_5_hu091d28fc6ffc61ac2ef8ca1c21c7bbf5_53575_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_5_hu091d28fc6ffc61ac2ef8ca1c21c7bbf5_53575_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="修改网站副标题和头像"
+class="gallery-image"
+data-flex-grow="124"
+data-flex-basis="299px"
+>&lt;/p>
+&lt;h3 id="新建文章">新建文章&lt;/h3>
+&lt;p>在content/post目录下，每个文件夹对应一篇文章，新建index.md（也可以通过hugo命令方式创建），里面就是写文章的配置和内容，我们可以参考示例文章进行更改&lt;/p>
+&lt;p>&lt;img src="https://bllon.github.io/p/hugo-blog/img_6.png"
+width="1013"
+height="628"
+srcset="https://bllon.github.io/p/hugo-blog/img_6_hu85fade64163e4f7464678c5c1a41b6dc_55794_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_6_hu85fade64163e4f7464678c5c1a41b6dc_55794_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="文章内容"
+class="gallery-image"
+data-flex-grow="161"
+data-flex-basis="387px"
+>&lt;/p>
+&lt;h3 id="更多配置">更多配置&lt;/h3>
+&lt;p>更多详细的配置，可以去看作者的官方文档 &lt;strong>&lt;a class="link" href="https://stack.jimmycai.com/" target="_blank" rel="noopener"
+>Stack&lt;/a>&lt;/strong>&lt;/p>
+&lt;p>里面包括 自定义页头页脚html内容， 开启评论， 嵌入视频， 图片等等&lt;/p>
+&lt;h2 id="发布github">发布Github&lt;/h2>
+&lt;p>在命令行博客目录下输入hugo，即可生成public目录，里面就是编译生成好的静态博客目录，只需要将该目录和远程仓库绑定即可&lt;/p>
+&lt;p>在Github分类下有一篇文章介绍创建远程仓库及使用git推送， 只需要创建一个bllon.github.io名称的仓库即可， bllon是我的名称，可以随意起名&lt;/p>
+&lt;p>接着我们在仓库设置下的Page下使用们的分支即可
+&lt;img src="https://bllon.github.io/p/hugo-blog/img_7.png"
+width="1502"
+height="839"
+srcset="https://bllon.github.io/p/hugo-blog/img_7_hu9e07dabcf26edb51ad3fd2818aebbb5f_76474_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_7_hu9e07dabcf26edb51ad3fd2818aebbb5f_76474_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Github Page配置"
+class="gallery-image"
+data-flex-grow="179"
+data-flex-basis="429px"
+>&lt;/p>
+&lt;p>浏览器输入bllon.github.io即可访问我们的博客页面&lt;/p>
+&lt;h2 id="配置github-actions自动部署">配置Github Actions自动部署&lt;/h2>
+&lt;p>&lt;strong>我们将博客目录作为一个推送仓库，每次提交到这个仓库，github的actions就会自动触发任务，
+将自动编译得到public目录并推送到另一个仓库bllon.github.io&lt;/strong>&lt;/p>
+&lt;p>只需要改动.github/workflows目录下的deploy.yml文件&lt;/p>
+&lt;p>&lt;img src="https://bllon.github.io/p/hugo-blog/img_8.png"
+width="828"
+height="309"
+srcset="https://bllon.github.io/p/hugo-blog/img_8_hub011eee6a252d73668cfa82daf618003_18502_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_8_hub011eee6a252d73668cfa82daf618003_18502_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="修改分支"
+class="gallery-image"
+data-flex-grow="267"
+data-flex-basis="643px"
+>&lt;/p>
+&lt;p>&lt;img src="https://bllon.github.io/p/hugo-blog/img_9.png"
+width="1362"
+height="416"
+srcset="https://bllon.github.io/p/hugo-blog/img_9_hue7bbc2be2efdeca6f307192f9a7e40ff_47458_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_9_hue7bbc2be2efdeca6f307192f9a7e40ff_47458_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="修改部署任务"
+class="gallery-image"
+data-flex-grow="327"
+data-flex-basis="785px"
+>&lt;/p>
+&lt;p>在项目仓库下的settings中创建 PERSONAL_TOKEN 环境变量
+&lt;img src="https://bllon.github.io/p/hugo-blog/img_10.png"
+width="1681"
+height="883"
+srcset="https://bllon.github.io/p/hugo-blog/img_10_hu96571e1e7ece14b909d5230183fcb324_83674_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_10_hu96571e1e7ece14b909d5230183fcb324_83674_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="创建 PERSONAL_TOKEN 环境变量"
+class="gallery-image"
+data-flex-grow="190"
+data-flex-basis="456px"
+>&lt;/p>
+&lt;p>在xx.github.io项目的settings下的actions/general下
+需要勾选权限：
+Allow all aactions and reusable workflows
+Require approval for first-time contributors
+Read and write permissions或者第二个&lt;/p>
+&lt;p>token需要权限：gist, read:org, repo, workflow&lt;/p>
+&lt;p>在项目仓库下的Actions中可以查看部署的任务，每次push提交远程仓库可以自动触发，也可以在GitHub仓库页面去执行和管理
+&lt;img src="https://bllon.github.io/p/hugo-blog/img_11.png"
+width="1804"
+height="810"
+srcset="https://bllon.github.io/p/hugo-blog/img_11_hufceea7b9b5e214d861bda5d63953108d_89297_480x0_resize_box_3.png 480w, https://bllon.github.io/p/hugo-blog/img_11_hufceea7b9b5e214d861bda5d63953108d_89297_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="部署任务"
+class="gallery-image"
+data-flex-grow="222"
+data-flex-basis="534px"
+>&lt;/p>
+&lt;p>至此完整的hugo博客搭建流程完毕！&lt;/p></description></item></channel></rss>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Protobuf on bllon</title><link>https://bllon.github.io/tags/protobuf/</link><description>Recent content in Protobuf on bllon</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://bllon.github.io/tags/protobuf/index.xml" rel="self" type="application/rss+xml"/><item><title>Protobuf安装</title><link>https://bllon.github.io/p/protobuf-install/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>https://bllon.github.io/p/protobuf-install/</guid><description>&lt;h2 id="下载地址">下载地址&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/protocolbuffers/protobuf/releases?page=7" target="_blank" rel="noopener"
+>下载地址&lt;/a>&lt;/p>
+&lt;p>解压配置环境变量&lt;/p>
+&lt;h2 id="mac下安装">mac下安装&lt;/h2>
+&lt;p>&lt;a class="link" href="https://www.jianshu.com/p/4b9b042e812e" target="_blank" rel="noopener"
+>https://www.jianshu.com/p/4b9b042e812e&lt;/a>&lt;/p></description></item></channel></rss>

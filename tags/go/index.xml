@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Go on bllon</title><link>https://bllon.github.io/tags/go/</link><description>Recent content in Go on bllon</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 22 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://bllon.github.io/tags/go/index.xml" rel="self" type="application/rss+xml"/><item><title>go 报错undefined syscall.SIGUSR1</title><link>https://bllon.github.io/p/go-windows-syscall-sigusr1/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>https://bllon.github.io/p/go-windows-syscall-sigusr1/</guid><description>&lt;h2 id="解决">解决&lt;/h2>
+&lt;blockquote>
+&lt;p>找到go包的src目录下的syscall/types_windows.go文件
+修改如下：&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">signals&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;hangup&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">2&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;interrupt&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">3&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;quit&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">4&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;illegal instruction&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">5&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;trace/breakpoint trap&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">6&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;aborted&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">7&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;bus error&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">8&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;floating point exception&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">9&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;killed&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">10&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;user defined signal 1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">11&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;segmentation fault&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">12&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;user defined signal 2&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">13&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;broken pipe&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">14&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;alarm clock&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">15&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;terminated&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/** 兼容windows start */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">16&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;SIGUSR1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">17&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;SIGUSR2&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mi">18&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;SIGTSTP&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/** 兼容windows end */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/** 兼容windows start */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">Kill&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="kd">interface&lt;/span>&lt;span class="p">{})&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">const&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">SIGUSR1&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nf">Signal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mh">0x10&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">SIGUSR2&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nf">Signal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mh">0x11&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">SIGTSTP&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nf">Signal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mh">0x12&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/** 兼容windows end */&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Protobuf安装</title><link>https://bllon.github.io/p/protobuf-install/</link><pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate><guid>https://bllon.github.io/p/protobuf-install/</guid><description>&lt;h2 id="下载地址">下载地址&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/protocolbuffers/protobuf/releases?page=7" target="_blank" rel="noopener"
+>下载地址&lt;/a>&lt;/p>
+&lt;p>解压配置环境变量&lt;/p>
+&lt;h2 id="mac下安装">mac下安装&lt;/h2>
+&lt;p>&lt;a class="link" href="https://www.jianshu.com/p/4b9b042e812e" target="_blank" rel="noopener"
+>https://www.jianshu.com/p/4b9b042e812e&lt;/a>&lt;/p></description></item><item><title>Go环境安装</title><link>https://bllon.github.io/p/go-install/</link><pubDate>Fri, 21 Jul 2023 00:00:00 +0000</pubDate><guid>https://bllon.github.io/p/go-install/</guid><description>&lt;h2 id="windows下安装">Windows下安装&lt;/h2>
+&lt;h3 id="下载go语言sdk">下载Go语言sdk&lt;/h3>
+&lt;p>&lt;a class="link" href="https://golang.google.cn/dl/" target="_blank" rel="noopener"
+>sdk下载地址&lt;/a> , 找到stable version版本, 目前已经更新到1.20.6&lt;/p>
+&lt;p>windows系统64位下载windows-amd64.zip, 32位下载windows-386.zip, 一般都是64位&lt;/p>
+&lt;p>下载完解压到一个go的目录下&lt;/p>
+&lt;h3 id="配置环境变量">配置环境变量&lt;/h3>
+&lt;p>打开windows文件管理器, 鼠标右键点击此电脑, 点击属性, 点击高级系统设置进入系统属性, 点击环境变量&lt;/p>
+&lt;p>新建系统变量&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">GOROOT =&amp;gt; go的sdk解压存放目录（例如D:/go）
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GOPATH =&amp;gt; 新建go的项目目录（例如D:/project/go）
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>找到系统变量中的Path, 双击进入, 新建&lt;/p>
+&lt;p>%GOROOT%\bin&lt;/p>
+&lt;p>%GOPATH%\bin&lt;/p>
+&lt;h3 id="验证安装">验证安装&lt;/h3>
+&lt;p>win + R 组合键, 输入cmd进入命令行, 输入go version, 输出得到go version go1.20.6 windows/amd64, 即代表安装成功&lt;/p>
+&lt;h3 id="配置go的代理环境">配置go的代理环境&lt;/h3>
+&lt;p>继续在命令行终端里输入并回车&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">go env -w &lt;span class="nv">GO111MODULE&lt;/span>&lt;span class="o">=&lt;/span>on
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">go env -w &lt;span class="nv">GOPROXY&lt;/span>&lt;span class="o">=&lt;/span>https://goproxy.cn,direct
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>至此windows下的Go环境安装完毕&lt;/p>
+&lt;h2 id="linux下安装">Linux下安装&lt;/h2>
+&lt;h3 id="下载go语言sdk-1">下载Go语言sdk&lt;/h3>
+&lt;p>&lt;a class="link" href="https://golang.google.cn/dl/" target="_blank" rel="noopener"
+>sdk下载地址&lt;/a> , 找到stable version版本, 目前已经更新到1.20.6&lt;/p>
+&lt;p>linux系统64位下载linux-amd64.tar.gz, 32位下载linux-386.tar.gz, 一般都是64位, 鼠标右键可以复制对应链接&lt;/p>
+&lt;p>下载完解压到一个go的目录下&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#下载&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://golang.google.cn/dl/go1.20.6.linux-amd64.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#解压&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -xzvf go1.20.6.linux-amd64.tar.gz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="配置环境变量-1">配置环境变量&lt;/h3>
+&lt;p>修改环境变量文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">vim /etc/profile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在最后一行添加&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="k">export&lt;/span> &lt;span class="n">GOROOT&lt;/span>&lt;span class="o">=/&lt;/span>&lt;span class="n">usr&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">local&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">go&lt;/span> &lt;span class="o">//&lt;/span>&lt;span class="n">GOROOT为解压的go&lt;/span> &lt;span class="n">sdk目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">export&lt;/span> &lt;span class="n">PATH&lt;/span>&lt;span class="o">=$&lt;/span>&lt;span class="n">PATH&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">GOROOT&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">bin&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>保存文件, 执行source /etc/profile使环境变量生效&lt;/p>
+&lt;h3 id="验证安装-1">验证安装&lt;/h3>
+&lt;p>直接在终端输入go version, 输出得到go version go1.20.6 linux/amd64, 即代表安装成功&lt;/p>
+&lt;h3 id="配置go的代理环境-1">配置go的代理环境&lt;/h3>
+&lt;p>继续在命令行终端里输入并回车&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">go env -w &lt;span class="nv">GO111MODULE&lt;/span>&lt;span class="o">=&lt;/span>on
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">go env -w &lt;span class="nv">GOPROXY&lt;/span>&lt;span class="o">=&lt;/span>https://goproxy.cn,direct
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>至此linux下的Go环境安装完毕&lt;/p></description></item></channel></rss>
